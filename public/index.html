@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172f28">
+  <title>FIELDLANE · 관수 운영 시뮬레이터</title>
+  <link rel="icon" href="/orchard.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script defer type="module" src="/ui.mjs"></script>
+</head>
+<body>
+  <a href="#main" class="skip">본문으로 건너뛰기</a>
+  <header class="top">
+    <div class="shell nav">
+      <a class="brand" href="/" aria-label="필드레인 홈"><span class="logo" aria-hidden="true">⌁</span> FIELDLANE</a>
+      <span class="site">TRAINING ORCHARD <span>/</span> FIELD 01</span>
+      <span class="mode"><i></i> 시뮬레이션</span>
+    </div>
+  </header>
+  <main id="main" class="shell">
+    <section class="intro" aria-labelledby="title">
+      <p class="eyebrow">FIELD OPERATIONS <span>01</span></p>
+      <h1 id="title">관수 운영 보드</h1>
+      <p>가상 과수원의 토양 상태를 살펴보고 관수 작업을 연습하세요.</p>
+    </section>
+    <section class="stats" aria-label="과수원 현황">
+      <div><span>관찰 구역</span><strong>04 <small>구역</small></strong></div>
+      <div><span>대기 장비</span><strong id="ready-count">02</strong></div>
+      <div><span>열린 작업</span><strong id="open-count">00</strong></div>
+    </section>
+    <section class="workspace" aria-label="관수 운영">
+      <div class="card map-card">
+        <header class="card-head"><div><p class="tag">01 / SITE PLAN</p><h2>가상 과수원 도면</h2></div><span class="minor">실측 위치 아님</span></header>
+        <div class="map">
+          <img src="/orchard.svg" alt="" width="700" height="420">
+          <div class="map-pins" id="map-pins" aria-label="구역 선택"></div>
+        </div>
+        <div class="map-foot"><span id="plot-detail"></span><span class="legend"><i></i> 선택한 구역</span></div>
+      </div>
+      <div class="card controls">
+        <header class="card-head"><div><p class="tag">02 / WORK ORDER</p><h2>모의 작업 등록</h2></div></header>
+        <form id="mission-form">
+          <label for="plot">관수 구역</label><select id="plot" name="plot" required></select>
+          <label for="rover">투입 장비</label><select id="rover" name="rover" required></select>
+          <div class="rover-meta" id="rover-meta"></div>
+          <label for="minutes">예정 시간 (분)</label><input id="minutes" name="minutes" type="number" value="8" min="1" max="30" step="1" required>
+          <button class="primary" type="submit">모의 작업 추가 <span aria-hidden="true">↗</span></button>
+        </form>
+        <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+        <p class="note">장비에 명령을 보내지 않아요. 기록은 이 브라우저에만 남아요.</p>
+      </div>
+    </section>
+    <section class="history card" aria-labelledby="history-heading">
+      <header class="card-head"><div><p class="tag">03 / ACTIVITY LOG</p><h2 id="history-heading">작업 이력</h2></div>
+      <label class="minor">상태 <select id="filter" aria-label="작업 상태 필터"><option value="all">전체</option><option value="queued">대기</option><option value="active">진행 중</option><option value="done">완료</option><option value="cancelled">취소</option></select></label></header>
+      <p class="sr" id="history-feedback" role="status"></p>
+      <ul id="missions"></ul>
+    </section>
+    <footer>FIELDLANE TRAINING LAB <span>가상 데이터 · 로컬 전용 데모</span></footer>
+  </main>
+</body>
+</html>
